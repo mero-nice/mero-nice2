@@ -2,254 +2,300 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>هدية ميرو</title>
-
 <style>
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 320px;  /* صغّرت شويه */
-    height: 568px; /* صغّرت شويه */
-    overflow: hidden;
+body {
+    margin:0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #1a1a1a, #4b0082);
-    color: white;
-}
-
-/* قلوب */
-.heart {
-    position: fixed;
-    top: -20px;
-    color: rgba(255,0,0,0.6);
-    font-size: 16px;
-    animation: fall linear infinite;
-    z-index: 999;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(600px);
-        opacity: 0;
-    }
+    color:white;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width: 375px;   /* ثابت بحجم تلفون */
+    height: 667px;  /* ثابت بحجم تلفون */
+    overflow:hidden;
+    position: relative;
 }
 
 /* صفحة الباسورد */
-#loginBox {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding:20px 30px;
+    border-radius:15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    max-width:100%;
+    text-align:center;
+    z-index:2;
 }
 
-h1 {
-    font-size: 24px;
+.login-box h1 {
+    font-size: 28px;
+    margin-bottom:15px;
     color: gold;
+    text-shadow: 2px 2px 8px #000;
 }
 
 input, button {
-    width: 90%;
+    width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
-    border-radius: 8px;
-    border: none;
+    margin-bottom: 15px;
+    border:none;
+    border-radius:10px;
+    font-size:14px;
 }
 
 button {
+    cursor:pointer;
     background: gold;
-    color: #333;
-    font-weight: bold;
+    color:#333;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover {
+    background:#ffeb3b;
+    transform: scale(1.05);
 }
 
 #error {
-    color: red;
-    display: none;
+    color:#ff4d4d;
+    margin-top:10px;
+    display:none;
 }
 
-/* زر الذكريات */
+/* زر ذكرياتنا الحلوة */
 #memories {
-    display: none;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+    display:none;
+    text-align:center;
+    margin-top:10px;
+    z-index:2;
 }
 
 #memories button {
-    padding: 15px 25px;
-    font-size: 18px;
+    padding: 15px 40px;
+    font-size: 20px;
     border-radius: 12px;
+    background: #ffeb3b;
+    color:#333;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition:0.3s;
+}
+
+#memories button:hover {
+    transform: scale(1.05);
+    background: gold;
 }
 
 /* المعرض */
 #gallery {
-    display: none;
-    height: 100%;
-    width: 100%;
+    display:none;
     position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index:1;
 }
 
 #gallery img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    cursor: pointer;
+    user-select: none;
 }
 
+/* النص أسفل الصورة */
 #caption {
+    font-size: 14px;
+    color: #ffeb3b;
+    background: rgba(0,0,0,0.6);
+    padding: 8px 12px;
+    border-radius: 10px;
     position: absolute;
-    bottom: 20px;
+    bottom: 40px; /* مرتفع شوية عن أسفل الصورة */
     left: 50%;
     transform: translateX(-50%);
-    font-size: 15px;
-    background: rgba(0,0,0,0.6);
-    padding: 10px 14px;
-    border-radius: 12px;
     max-width: 90%;
-    text-align: center;
-    color: #ffeb3b;
+    word-wrap: break-word;
+    white-space: normal;
+    z-index:2;
 }
 
-/* صفحة الوداع */
-#bye {
-    display: none;
+/* صفحة وداع */
+#goodbye {
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    color:white;
+    text-align:center;
+    z-index:2;
+}
+
+/* القلوب المتساقطة */
+.heart {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    transform: rotate(-45deg);
+    top: -20px;
+    animation: fall linear;
+    z-index:3;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -7px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 7px;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100%) rotate(360deg);
+    }
 }
 </style>
 </head>
-
 <body>
 
-<!-- موسيقى -->
-<audio id="music" src="100.mp3"></audio>
-
-<!-- باسورد -->
-<div id="loginBox">
+<!-- صفحة الباسورد -->
+<div class="login-box" id="loginBox">
     <h1>🎁 لأحلى ميرو 🎁</h1>
     <input type="password" id="password" placeholder="ادخل كلمة السر">
     <button onclick="checkPassword()">اتفضل</button>
-    <div id="error">كلمة السر غلط</div>
+    <div id="error">❌ كلمة السر غلط</div>
 </div>
 
-<!-- زر الذكريات -->
+<!-- زر ذكرياتنا الحلوة -->
 <div id="memories">
-    <button onclick="showGallery()">ذكرياتنا الحلوة 💛</button>
-</div>
-
-<!-- المعرض -->
-<div id="gallery">
-    <img id="img" onclick="nextPrev(event)">
-    <div id="caption"></div>
-</div>
-
-<!-- الوداع -->
-<div id="bye">
-    <div>
-        <h1>😂 اي رايك في الاغنيه</h1>
-        <p>هو ده اللي فضل من 8 شهور الا 5 ايام حب للأسف الباقي ضاع</p>
+    <button id="showGalleryBtn" onclick="showGallery()">ذكرياتنا الحلوة 💛</button>
+    <div id="gallery">
+        <img id="memoryImg" src="" alt="صورة" onclick="imageClick(event)">
+        <p id="caption"></p>
     </div>
 </div>
 
+<!-- صفحة الوداع -->
+<div id="goodbye">
+    <h1>😂 اي رأيك في الأغنية</h1>
+    <p>هو ده اللي فضل من 8 شهور الا 5 ايام حب للأسف الباقي ضاع</p>
+</div>
+
+<!-- عنصر الصوت -->
+<audio id="bgMusic" src="100.mp3"></audio>
+
 <script>
-/* القلوب */
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (3 + Math.random()*3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 150);
-
-/* باسورد */
-const password = document.getElementById("password");
-const loginBox = document.getElementById("loginBox");
-const memories = document.getElementById("memories");
-const error = document.getElementById("error");
-const music = document.getElementById("music");
-
-function checkPassword(){
-    if(password.value === "1234"){
-        loginBox.style.display = "none";
-        memories.style.display = "flex";
-        music.play();
+function checkPassword() {
+    const correctPassword = "1234";
+    const input = document.getElementById("password").value;
+    if(input === correctPassword){
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("memories").style.display = "block";
+        document.getElementById("bgMusic").play();
     } else {
-        error.style.display = "block";
+        document.getElementById("error").style.display = "block";
     }
 }
 
-/* الصور */
+// كل النصوص كاملة
 const captions = [
-    "ده اول استوري اكلمك عشان تبعتيهولي طبعًا مش عشان مش هاعرف اجيبو .عشان اكلمك بس وطبعا انتي كنتي بارده وغلسه وبعتي الفديو وسكتي على كده",
-    "ده بقي استوري حزين بصراحه عجبني  لان بحب عمار برضو نفس القصه قولتلك ابعتيلي الفديو وبرضو بعتيه وكنتي باره وماتكلمتيش فاخدت القرار اني ابدا انا",
-    "هنا بقي حسن الحنون اللي كان بيخاف عليكي وعلي تعبك",
-    "هنا بقي منار اللي كانت بتحبني",
-    "هنا بقي لما كنتي بتحبي تكلميني",
-    "ودي بقي منار لما تتعصب كانت كيوت قوي والله",
-    "لما يندمج الحب والعصبيه في وقت واحد",
-    "ودي بقي لما كانت الحب بتحاول تخليني اقول كلمه حلوه",
-    "في الموقف ده بقي كنا المفروض هانقفل بس كل ماقول سلام تقولي حاجه وكل متقولي سلام انا اقول حاجه",
-    "😍الرساله دي في قلبي والله😍",
-    "دي كماله الموقف اللي فات",
-    "هنا بقي لما كنت افتح الشات الاقي رساله حلوه كده نكمل بيها باقي اليوم 😂❤️",
-    "لما كان فيه وحده اسمها منار بتخاف عليا",
-    "مش عارف جبتها ليه بس عجبتني 🤣❤️",
-    "دي بقي عشان انا بقول فيها كلام حلو ورايق",
-    "دي بقي البت منار لما كانت بتخاف علي زعلي وده دليل انك كنتي مستفزه 😂❤️😍",
-    "دي بقي منار اللي كانت بتاكل بعقلي حلاوه",
-    "دي بقي قلبي لما كانت بتتقمص 😂❤️❤️❤️😘",
-    "دي بقي جبتها عشان كان الموقف بيتكرر كتير بس",
-    "هنا لما كنتي بتقلديني وخلاص",
-    "ده بقي كان وداع المحبين اللي الدنيا جت عليهم 😂❤️",
-    "ده لما كنتي بتقولي بتحبيني",
-    "هنا بقي بدات مصرحيه المشاكل والنكد",
-    "هنا كان فيه حوار بس اي بقي مش قادر افتكر",
-    "دي بقي لما كنتي بتشكي فيا وفي اخلاقي",
-    "هنا بقي ربنا براني منك وعرفك اني اطهر انسان ع الكوكب",
-    "دي بقي الصوره الوحيده اللي لقيتها للاسف"
+"ده اول استوري اكلمك عشان تبعتيهولي طبعًا مش عشان مش هاعرف اجيبو .عشان اكلمك بس ❤️ وطبعا انتي كنتي بارده وغلسه 😅 وبعتي الفديو 🎥 وسكتي على كده",
+"ده بقي استوري حزين بصراحه عجبني 🙂 لان بحب عمار برضو نفس القصه 😂 قولتلك ابعتيلي الفديو وبرضو بعتيه وكنتي باره وماتكلمتيش 😒 فاخدت القرار اني ابدا انا ❤️❤️",
+"هنا بقي حسن الحنون اللي كان بيخاف عليكي وعلي تعبك",
+"هنا بقي منار اللي كانت بتحبني",
+"هنا بقي لما كنتي بتحبي تكلميني",
+"ودي بقي منار لما تتعصب كانت كيوت قوي والله",
+"لما يندمج الحب والعصبيه في وقت واحد",
+"ودي بقي لما كانت الحب بتحاول تخليني اقول كلمه حلوه",
+"في الموقف ده بقي كنا المفروض هانقفل بس كل ماقول سلام تقولي حاجه وكل متقولي سلام انا اقول حاجه",
+"😍الرساله دي في قلبي والله😍",
+"دي كماله الموقف اللي فات",
+"هنا بقي لما كنت افتح الشات الاقي رساله حلوه كده نكمل بيها باقي اليوم 😂❤️",
+"لما كان فيه وحده اسمها منار بتخاف عليا",
+"مش عارف جبتها ليه بس عجبتني 🤣❤️",
+"دي بقي عشان انا بقول فيها كلام حلو ورايق",
+"دي بقي البت منار لما كانت بتخاف علي زعلي وده دليل انك كنتي مستفزه 😂❤️😍",
+"دي بقي منار اللي كانت بتاكل بعقلي حلاوه",
+"دي بقي قلبي لما كانت بتتقمص 😂❤️❤️❤️😘",
+"دي بقي جبتها عشان كان الموقف بيتكرر كتير بس",
+"هنا لما كنتي بتقلديني وخلاص",
+"ده بقي كان وداع المحبين اللي الدنيا جت عليهم 😂❤️",
+"ده لما كنتي بتقولي بتحبيني",
+"هنا بقي بدات مصرحيه المشاكل والنكد",
+"هنا كان فيه حوار بس اي بقي مش قادر افتكر",
+"دي بقي لما كنتي بتشكي فيا وفي اخلاقي",
+"هنا بقي ربنا براني منك وعرفك اني اطهر انسان ع الكوكب",
+"دي بقي الصوره الوحيده اللي لقيتها للاسف"
 ];
 
-let i = 0;
-const img = document.getElementById("img");
-const caption = document.getElementById("caption");
-const gallery = document.getElementById("gallery");
-const bye = document.getElementById("bye");
+let currentIndex = 0;
 
-function showGallery(){
-    memories.style.display = "none";
-    gallery.style.display = "block";
-    update();
+function showGallery() {
+    document.getElementById("showGalleryBtn").style.display = "none";
+    document.getElementById("gallery").style.display = "block";
+    updateImage();
 }
 
-function update(){
-    img.src = (i+1) + ".jpeg";
-    caption.innerText = captions[i] || "";
+function updateImage() {
+    const img = document.getElementById("memoryImg");
+    img.src = (currentIndex+1) + ".jpeg";
+    document.getElementById("caption").textContent = captions[currentIndex];
 }
 
-function nextPrev(e){
-    const x = e.offsetX;
-    if(x < 160){ // الجهة اليسرى
-        i--;
-    } else { // الجهة اليمنى
-        i++;
+function imageClick(event) {
+    const rect = event.target.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    if(x < rect.width/2){
+        currentIndex++;
+        if(currentIndex >= captions.length) {
+            document.getElementById("gallery").style.display = "none";
+            document.getElementById("goodbye").style.display = "flex";
+            return;
+        }
+    } else {
+        currentIndex--;
+        if(currentIndex < 0) currentIndex = captions.length - 1;
     }
-
-    if(i >= captions.length){
-        gallery.style.display = "none";
-        bye.style.display = "flex";
-        return;
-    }
-
-    if(i < 0) i = captions.length - 1;
-    update();
+    updateImage();
 }
+
+// القلوب المتساقطة
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 360 + "px";
+    heart.style.animationDuration = 3 + Math.random() * 2 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 5000);
+}
+setInterval(createHeart, 150);
+
 </script>
 
 </body>
 </html>
+
