@@ -2,10 +2,7 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 <title>هدية ميرو</title>
 
@@ -13,8 +10,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    width: 375px;
-    height: 812px;
+    width: 320px;  /* صغّرت شويه */
+    height: 568px; /* صغّرت شويه */
     overflow: hidden;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #1a1a1a, #4b0082);
@@ -26,14 +23,14 @@ html, body {
     position: fixed;
     top: -20px;
     color: rgba(255,0,0,0.6);
-    font-size: 20px;
+    font-size: 16px;
     animation: fall linear infinite;
     z-index: 999;
 }
 
 @keyframes fall {
     to {
-        transform: translateY(900px);
+        transform: translateY(600px);
         opacity: 0;
     }
 }
@@ -49,16 +46,16 @@ html, body {
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 24px;
     color: gold;
 }
 
 input, button {
-    width: 80%;
-    padding: 12px;
+    width: 90%;
+    padding: 10px;
     margin: 10px 0;
-    font-size: 18px;
-    border-radius: 10px;
+    font-size: 16px;
+    border-radius: 8px;
     border: none;
 }
 
@@ -82,9 +79,9 @@ button {
 }
 
 #memories button {
-    padding: 20px 30px;
-    font-size: 22px;
-    border-radius: 15px;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 12px;
 }
 
 /* المعرض */
@@ -106,10 +103,10 @@ button {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 17px;
+    font-size: 15px;
     background: rgba(0,0,0,0.6);
-    padding: 12px 16px;
-    border-radius: 15px;
+    padding: 10px 14px;
+    border-radius: 12px;
     max-width: 90%;
     text-align: center;
     color: #ffeb3b;
@@ -171,6 +168,12 @@ setInterval(() => {
 }, 150);
 
 /* باسورد */
+const password = document.getElementById("password");
+const loginBox = document.getElementById("loginBox");
+const memories = document.getElementById("memories");
+const error = document.getElementById("error");
+const music = document.getElementById("music");
+
 function checkPassword(){
     if(password.value === "1234"){
         loginBox.style.display = "none";
@@ -183,10 +186,8 @@ function checkPassword(){
 
 /* الصور */
 const captions = [
-const captions = [
-    const captions = [
     "ده اول استوري اكلمك عشان تبعتيهولي طبعًا مش عشان مش هاعرف اجيبو .عشان اكلمك بس وطبعا انتي كنتي بارده وغلسه وبعتي الفديو وسكتي على كده",
-    "ده بقي استوري حزين بصراحه عجبني  لان بحب عمار برضو نفس القصه قولتلك ابعتيلي الفديو وبرضو بعتيه وكنتي باره وماتكلمتيش فاخدت القرار اني ابدا انا ",
+    "ده بقي استوري حزين بصراحه عجبني  لان بحب عمار برضو نفس القصه قولتلك ابعتيلي الفديو وبرضو بعتيه وكنتي باره وماتكلمتيش فاخدت القرار اني ابدا انا",
     "هنا بقي حسن الحنون اللي كان بيخاف عليكي وعلي تعبك",
     "هنا بقي منار اللي كانت بتحبني",
     "هنا بقي لما كنتي بتحبي تكلميني",
@@ -214,11 +215,11 @@ const captions = [
     "دي بقي الصوره الوحيده اللي لقيتها للاسف"
 ];
 
-];
-
-];
-
 let i = 0;
+const img = document.getElementById("img");
+const caption = document.getElementById("caption");
+const gallery = document.getElementById("gallery");
+const bye = document.getElementById("bye");
 
 function showGallery(){
     memories.style.display = "none";
@@ -233,24 +234,22 @@ function update(){
 
 function nextPrev(e){
     const x = e.offsetX;
-    if(x < 187){
-        i++;
-    } else {
+    if(x < 160){ // الجهة اليسرى
         i--;
+    } else { // الجهة اليمنى
+        i++;
     }
 
-    if(i === 27){
+    if(i >= captions.length){
         gallery.style.display = "none";
         bye.style.display = "flex";
         return;
     }
 
-    if(i < 0) i = 26;
+    if(i < 0) i = captions.length - 1;
     update();
 }
 </script>
 
 </body>
 </html>
-
-
